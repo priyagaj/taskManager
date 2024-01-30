@@ -1,35 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import { useState } from "react";
+import TaskList from "./components/TaskList/TaskList";
+import { useTasks } from "./hooks/useTasks";
+import {
+  Conatainer,
+  StyledButton,
+  AddTaskContainer,
+  Row,
+  Column,
+} from "./App.styled";
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, updateTasks] = useState([
+    {
+      id: 0,
+      status: "To do",
+      name: "Task 1",
+    },
+    {
+      id: 1,
+      status: "In Progress",
+      name: "Task 2",
+    },
+    {
+      id: 3,
+      status: "Completed",
+      name: "Task 3",
+    },
+  ]);
+  const [inProgress, completed, todo] = useTasks(tasks);
 
   return (
-    <>
+    <Conatainer>
+      <h2 className="heading" style={{ fontWeight: 500 }}>
+        Task list
+      </h2>
+      <AddTaskContainer>
+        <input className="addTasks" />
+        <StyledButton>+ Add task </StyledButton>
+      </AddTaskContainer>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <Row>
+          <Column>
+            <h3 className="listHeading">To do</h3>
+            <TaskList list={todo} />
+          </Column>
+          <Column>
+            <h3 className="listHeading">In progress</h3>
+            <TaskList list={inProgress} />
+          </Column>
+          <Column>
+            <h3 className="listHeading">Completed</h3>
+            <TaskList list={completed} />
+          </Column>
+        </Row>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Conatainer>
+  );
 }
 
-export default App
+export default App;
