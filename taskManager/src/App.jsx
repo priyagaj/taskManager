@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TaskList from "./components/TaskList/TaskList";
 import { useTasks } from "./hooks/useTasks";
 import { Conatainer, StyledButton, AddTaskContainer, Row } from "./App.styled";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { useLocalStorge } from "./hooks/useLocalStorage";
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useLocalStorge('tasks',[]);
   const [newtask, setNewTask] = useState("");
   const [inProgress, completed, todo] = useTasks(tasks);
-
+  
   const updateTasks = () => {
     if (newtask?.length) {
-      setTasks([...tasks, { id: Date.now(), name: newtask, status: "To do" }]);
+      setTasks((prev) => {
+        const newTasks = [...prev, { id: Date.now(), name: newtask, status: "To do" }];
+        return newTasks
+      });
       setNewTask("");
     }
   };

@@ -26,7 +26,7 @@ export default function TaskList({
         }
         return task;
       });
-      return updatedList
+      return updatedList;
     });
   };
   const sectionDataMap = {
