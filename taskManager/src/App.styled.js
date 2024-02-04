@@ -8,21 +8,19 @@ export const Conatainer = styled.div`
   }
 `;
 export const StyledButton = styled.button`
-  background-color: blue;
+  background-color: ${props => props.disabled ? '#A8A8A8' :'blue'};
   border: none;
   padding: 8px 15px;
   color: white;
   border-radius: 5px;
   text-align: center;
+
 `;
 export const Row = styled.div`
   display: flex;
   min-height: 500px;
   height: 100%;
   margin-top: 20px;
-  .listHeading {
-    font-weight: 500;
-  }
 `;
 export const Column = styled.div`
   background-color: #ebebeb;

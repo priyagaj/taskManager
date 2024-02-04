@@ -33,7 +33,7 @@ function App() {
             value={newtask}
             onChange={(e) => setNewTask(e.target.value)}
           />
-          <StyledButton onClick={updateTasks}>+ Add task </StyledButton>
+          <StyledButton onClick={updateTasks} disabled={!(newtask?.length > 1) }>+ Add task </StyledButton>
         </AddTaskContainer>
         <div>
           <Row>
