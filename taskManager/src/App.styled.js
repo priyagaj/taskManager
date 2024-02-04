@@ -17,7 +17,8 @@ export const StyledButton = styled.button`
 `;
 export const Row = styled.div`
     display: flex;
-    height: 500px;
+    min-height: 500px;
+    height: 100%;;
     margin-top: 20px;
     .listHeading{
         font-weight: 500;
@@ -27,7 +28,7 @@ export const Row = styled.div`
 export const Column = styled.div`
     background-color: #ebebeb;
     flex: 1;
-    margin: 3px;
+    margin: 7px;
     border: 1px solid white;
     border-radius: 10px;
     padding: 10px;

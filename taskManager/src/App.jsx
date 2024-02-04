@@ -1,59 +1,55 @@
 import { useState } from "react";
 import TaskList from "./components/TaskList/TaskList";
 import { useTasks } from "./hooks/useTasks";
-import {
-  Conatainer,
-  StyledButton,
-  AddTaskContainer,
-  Row,
-  Column,
-} from "./App.styled";
+import { Conatainer, StyledButton, AddTaskContainer, Row } from "./App.styled";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 function App() {
-  const [tasks, updateTasks] = useState([
-    {
-      id: 0,
-      status: "To do",
-      name: "Task 1",
-    },
-    {
-      id: 1,
-      status: "In Progress",
-      name: "Task 2",
-    },
-    {
-      id: 3,
-      status: "Completed",
-      name: "Task 3",
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
+  const [newtask, setNewTask] = useState("");
   const [inProgress, completed, todo] = useTasks(tasks);
 
+  const updateTasks = () => {
+    if (newtask?.length) {
+      setTasks([...tasks, { id: Date.now(), name: newtask, status: "To do" }]);
+      setNewTask("");
+    }
+  };
+  console.log("new tsk", tasks, todo, inProgress, completed);
+
   return (
-    <Conatainer>
-      <h2 className="heading" style={{ fontWeight: 500 }}>
-        Task list
-      </h2>
-      <AddTaskContainer>
-        <input className="addTasks" />
-        <StyledButton>+ Add task </StyledButton>
-      </AddTaskContainer>
-      <div>
-        <Row>
-          <Column>
-            <h3 className="listHeading">To do</h3>
-            <TaskList list={todo} />
-          </Column>
-          <Column>
-            <h3 className="listHeading">In progress</h3>
-            <TaskList list={inProgress} />
-          </Column>
-          <Column>
-            <h3 className="listHeading">Completed</h3>
-            <TaskList list={completed} />
-          </Column>
-        </Row>
-      </div>
-    </Conatainer>
+    <DndProvider backend={HTML5Backend}>
+      <Conatainer>
+        <h2 className="heading" style={{ fontWeight: 500 }}>
+          Task list
+        </h2>
+        <AddTaskContainer>
+          <input
+            className="addTasks"
+            value={newtask}
+            onChange={(e) => setNewTask(e.target.value)}
+          />
+          <StyledButton onClick={updateTasks}>+ Add task </StyledButton>
+        </AddTaskContainer>
+        <div>
+          <Row>
+            {["To do", "In Progress", "Completed"]?.map((taskType, idx) => {
+              return (
+                <TaskList
+                  list={tasks}
+                  key={idx}
+                  taskType={taskType}
+                  setTasks={setTasks}
+                  todo={todo}
+                  inProgress={inProgress}
+                  completed={completed}
+                />
+              );
+            })}
+          </Row>
+        </div>
+      </Conatainer>
+    </DndProvider>
   );
 }
 
