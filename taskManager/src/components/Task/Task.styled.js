@@ -8,5 +8,5 @@ export const TaskDiv = styled.button`
   border-radius: 5px;
   margin-top: 5px;
   text-align: left;
-
+  opacity: ${props  => props.isDragging ? '0.5': 1};
 `;

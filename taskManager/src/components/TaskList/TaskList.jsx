@@ -4,7 +4,6 @@ import { TaskListDiv, Column } from "./TaskList.styled";
 import { useDrop } from "react-dnd";
 
 export default function TaskList({
-  list,
   todo,
   inProgress,
   completed,
@@ -36,9 +35,9 @@ export default function TaskList({
   };
 
   const sectionData = sectionDataMap[taskType];
-  //console.log("sectiondata", sectionData, taskType);
+
   return (
-    <Column ref={drop}>
+    <Column ref={drop} isOver={isOver}>
       <TaskListDiv>
         <h3 className="listHeading">{taskType}</h3>
         {sectionData?.length > 0 &&
