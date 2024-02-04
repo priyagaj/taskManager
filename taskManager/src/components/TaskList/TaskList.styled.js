@@ -14,8 +14,9 @@ export const Column = styled.div`
   padding: 0px 10px;
   justify-content: center;
   .listHeading {
-    font-weight: 500;
-    padding: 0;
+    font-weight: 900;
+    padding: 2px;
     text-align: center;
+    color: ${ props => props.color } ;
   }
 `;

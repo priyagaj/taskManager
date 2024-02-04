@@ -33,11 +33,15 @@ export default function TaskList({
     "In Progress": inProgress,
     Completed: completed,
   };
-
+  const headingColor = {
+    "To do": '#FFCC99',
+    "In Progress": '#99E6FF',
+    Completed:  '#B399FF',
+  }
   const sectionData = sectionDataMap[taskType];
 
   return (
-    <Column ref={drop} isOver={isOver}>
+    <Column ref={drop} isOver={isOver} color={headingColor[taskType]}>
       <TaskListDiv>
         <h3 className="listHeading">{taskType}</h3>
         {sectionData?.length > 0 &&
